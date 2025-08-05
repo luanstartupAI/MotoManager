@@ -18,6 +18,7 @@ use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Illuminate\Support\HtmlString;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class AppraisalResource extends Resource
 {
@@ -84,7 +85,7 @@ class AppraisalResource extends Resource
                     ->schema([
                         Placeholder::make('total_refurbishment_cost')
                             ->label('Custo Total de Repasse (R$)')
-                            ->content(function (?Appraisal $record, Set $set, Get $get): string|HtmlString {
+                            ->content(function (?Appraisal $record, Set $set, Get $get): string {
                                 if (!$record) {
                                     $set('total_refurbishment_cost', 0.00);
                                     return 'R$ 0,00';
@@ -140,7 +141,7 @@ class AppraisalResource extends Resource
                 Tables\Columns\TextColumn::make('final_calculated_price')
                     ->label('Preço Final')
                     ->money('BRL')
-                    ->getStateUsing(fn (Appraisal $record): float => $record->appraisal_value - $record->appraisalItems()->sum('cost'))
+                    ->getStateUsing(fn (Appraisal $record): float => (float) $record->appraisal_value - $record->appraisalItems()->sum('cost'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('appraisal_date')
                     ->label('Data Avaliação')
@@ -162,16 +163,16 @@ class AppraisalResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make()
-                    ->visible(fn (): bool => auth()->user()->can('view_appraisals')),
+                    ->visible(fn (): bool => Auth::user()?->can('view_appraisals') ?? false),
                 Tables\Actions\EditAction::make()
-                    ->visible(fn (): bool => auth()->user()->can('edit_appraisals')),
+                    ->visible(fn (): bool => Auth::user()?->can('edit_appraisals') ?? false),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn (): bool => auth()->user()->can('delete_appraisals')),
+                    ->visible(fn (): bool => Auth::user()?->can('delete_appraisals') ?? false),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                        ->visible(fn (): bool => auth()->user()->can('delete_appraisals')),
+                        ->visible(fn (): bool => Auth::user()?->can('delete_appraisals') ?? false),
                 ]),
             ]);
     }
@@ -195,22 +196,22 @@ class AppraisalResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->can('view_appraisals');
+        return Auth::user()?->can('view_appraisals') ?? false;
     }
 
     public static function canCreate(): bool
     {
-        return auth()->user()->can('create_appraisals');
+        return Auth::user()?->can('create_appraisals') ?? false;
     }
 
     public static function canEdit(Model $record): bool
     {
-        return auth()->user()->can('edit_appraisals');
+        return Auth::user()?->can('edit_appraisals') ?? false;
     }
 
     public static function canDelete(Model $record): bool
     {
-        return auth()->user()->can('delete_appraisals');
+        return Auth::user()?->can('delete_appraisals') ?? false;
     }
 }
 

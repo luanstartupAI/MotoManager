@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @template TFactory
+ * @extends Model<TFactory>
+ */
 class Customer extends Model
 {
     use HasFactory;
@@ -22,6 +26,7 @@ class Customer extends Model
         'assigned_to_user_id',
     ];
 
+    /** @var array<string, string> */
     protected $casts = [
         'birth_date' => 'date',
     ];

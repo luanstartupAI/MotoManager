@@ -21,6 +21,7 @@ class AlertsWidget extends Widget
         ];
     }
 
+    /** @return array<int, array<string, mixed>> */
     private function getAlerts(): array
     {
         $alerts = [];

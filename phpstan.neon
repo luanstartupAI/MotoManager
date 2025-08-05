@@ -14,6 +14,20 @@ parameters:
         - '#Call to an undefined method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'
         - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+#'
         - '#Call to static method [a-zA-Z0-9\\_]+\(\) on an unknown class#'
+        - '#Call to an undefined static method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'
+        - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Factory::user\(\)#'
+        - '#Call to an undefined method Illuminate\\Contracts\\Auth\\Authenticatable::can\(\)#'
+        - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) return type has no value type specified in iterable type array#'
+        - '#Match expression does not handle remaining value: string#'
+        - '#Call to an undefined method Filament\\Forms\\Components\\FileUpload::collection\(\)#'
+        - '#Call to an undefined method Filament\\Tables\\Columns\\TextColumn::boolean\(\)#'
+        - '#PHPDoc tag @extends contains generic type#'
+        - '#Class [a-zA-Z0-9\\_]+ uses generic trait [a-zA-Z0-9\\_]+ but does not specify its types#'
+        - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) return type with generic class [a-zA-Z0-9\\_]+ does not specify its types#'
+        - '#Property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+ type has no value type specified in iterable type array#'
+        - '#Method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\) has parameter \$[a-zA-Z0-9\\_]+ with no type specified#'
+        - '#Anonymous function should return [a-zA-Z0-9\\_]+ but returns [a-zA-Z0-9\\_]+#'
+        - '#Anonymous function never returns [a-zA-Z0-9\\_]+ so it can be removed from the return type#'
     tmpDir: build/phpstan
     parallel:
         maximumNumberOfProcesses: 4

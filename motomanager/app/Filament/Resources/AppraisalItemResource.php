@@ -86,14 +86,14 @@ class AppraisalItemResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->visible(fn (): bool => auth()->user()->can('edit_appraisal_items')),
+                    ->visible(fn (): bool => Auth::user()?->can('edit_appraisal_items') ?? false),
                 Tables\Actions\DeleteAction::make()
-                    ->visible(fn (): bool => auth()->user()->can('delete_appraisal_items')),
+                    ->visible(fn (): bool => Auth::user()?->can('delete_appraisal_items') ?? false),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()
-                        ->visible(fn (): bool => auth()->user()->can('delete_appraisal_items')),
+                        ->visible(fn (): bool => Auth::user()?->can('delete_appraisal_items') ?? false),
                 ]),
             ]);
     }
@@ -116,22 +116,22 @@ class AppraisalItemResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->can('view_appraisal_items');
+        return Auth::user()?->can('view_appraisal_items') ?? false;
     }
 
     public static function canCreate(): bool
     {
-        return auth()->user()->can('create_appraisal_items');
+        return Auth::user()?->can('create_appraisal_items') ?? false;
     }
 
     public static function canEdit(Model $record): bool
     {
-        return auth()->user()->can('edit_appraisal_items');
+        return Auth::user()?->can('edit_appraisal_items') ?? false;
     }
 
     public static function canDelete(Model $record): bool
     {
-        return auth()->user()->can('delete_appraisal_items');
+        return Auth::user()?->can('delete_appraisal_items') ?? false;
     }
 }
 

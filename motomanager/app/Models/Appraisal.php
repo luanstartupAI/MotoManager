@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
+/**
+ * @template TFactory
+ * @extends Model<TFactory>
+ */
 class Appraisal extends Model
 {
     use HasFactory;
@@ -17,10 +21,12 @@ class Appraisal extends Model
         'base_fipe_price',
         'total_deductions',
         'final_appraisal_value',
+        'appraisal_value',
         'status',
         'notes',
     ];
 
+    /** @var array<string, string> */
     protected $casts = [
         'base_fipe_price' => 'decimal:2',
         'total_deductions' => 'decimal:2',
@@ -38,6 +44,11 @@ class Appraisal extends Model
     }
 
     public function items(): HasMany
+    {
+        return $this->hasMany(AppraisalItem::class);
+    }
+
+    public function appraisalItems(): HasMany
     {
         return $this->hasMany(AppraisalItem::class);
     }
