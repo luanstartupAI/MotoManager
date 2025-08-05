@@ -29,6 +29,7 @@ class AdminPanelProvider extends PanelProvider
             ->login()
             ->colors([
                 "primary" => Color::Amber,
+                "gray" => Color::Slate,
             ])
             ->discoverResources(in: app_path("Filament/Resources"), for: "App\\Filament\\Resources")
             ->discoverPages(in: app_path("Filament/Pages"), for: "App\\Filament\\Pages")
@@ -60,14 +61,23 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->brandName('MotoManager CRM')
+            ->brandLogo(asset('images/logo.png'))
+            ->favicon(asset('images/favicon.ico'))
+            ->navigationGroups([
+                'Gestão de Vendas',
+                'Estoque',
+                'Clientes',
+                'Relatórios',
+                'Configurações',
+            ])
+            ->sidebarCollapsibleOnDesktop()
+            ->maxContentWidth('full')
+            ->spa()
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             ->authGuard("web")
-            ->globalSearch(false)
-            ->tenant(
-                null,
-                null,
-                null
-            )
-            ->authGuard("web");
+            ->globalSearch(false);
     }
 }
 

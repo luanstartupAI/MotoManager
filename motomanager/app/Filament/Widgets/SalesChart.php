@@ -28,12 +28,12 @@ class SalesChart extends ChartWidget
             $date = Carbon::now()->subMonths($i);
             $monthName = $date->format('M/Y');
             
-            $salesCount = Sale::whereMonth('created_at', $date->month)
-                             ->whereYear('created_at', $date->year)
+            $salesCount = Sale::whereMonth('sale_date', $date->month)
+                             ->whereYear('sale_date', $date->year)
                              ->count();
             
-            $revenue = Sale::whereMonth('created_at', $date->month)
-                          ->whereYear('created_at', $date->year)
+            $revenue = Sale::whereMonth('sale_date', $date->month)
+                          ->whereYear('sale_date', $date->year)
                           ->sum('final_sale_price');
             
             $months[] = $monthName;

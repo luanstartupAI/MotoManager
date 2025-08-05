@@ -24,13 +24,13 @@ class StatsOverview extends BaseWidget
         // Calcular vendas do mês atual vs mês anterior
         $currentMonth = Carbon::now()->month;
         $currentYear = Carbon::now()->year;
-        $salesThisMonth = Sale::whereMonth('created_at', $currentMonth)
-                             ->whereYear('created_at', $currentYear)
+        $salesThisMonth = Sale::whereMonth('sale_date', $currentMonth)
+                             ->whereYear('sale_date', $currentYear)
                              ->count();
         
         $lastMonth = Carbon::now()->subMonth();
-        $salesLastMonth = Sale::whereMonth('created_at', $lastMonth->month)
-                             ->whereYear('created_at', $lastMonth->year)
+        $salesLastMonth = Sale::whereMonth('sale_date', $lastMonth->month)
+                             ->whereYear('sale_date', $lastMonth->year)
                              ->count();
         
         $salesTrend = $salesLastMonth > 0 ? 
@@ -38,11 +38,21 @@ class StatsOverview extends BaseWidget
             ($salesThisMonth > 0 ? 100 : 0);
 
         // Calcular leads convertidos
-        $convertedLeads = Lead::where("status", "VENDIDO")->count();
+        $convertedLeads = Lead::where("status", "GANHO")->count();
         $conversionRate = $totalLeads > 0 ? round(($convertedLeads / ($totalLeads + $convertedLeads)) * 100, 1) : 0;
 
         // Calcular ticket médio
         $averageTicket = $totalSales > 0 ? $totalRevenue / $totalSales : 0;
+
+        // Calcular faturamento do mês
+        $revenueThisMonth = Sale::whereMonth('sale_date', $currentMonth)
+                               ->whereYear('sale_date', $currentYear)
+                               ->sum('final_sale_price');
+
+        // Calcular leads novos do mês
+        $leadsThisMonth = Lead::whereMonth('created_at', $currentMonth)
+                             ->whereYear('created_at', $currentYear)
+                             ->count();
 
         return [
             Stat::make("💰 Faturamento Total", "R$ " . number_format($totalRevenue, 2, ",", "."))
@@ -50,6 +60,11 @@ class StatsOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-trending-up')
                 ->chart([7, 2, 10, 3, 15, 4, 17])
                 ->color('success'),
+
+            Stat::make("📊 Faturamento do Mês", "R$ " . number_format($revenueThisMonth, 2, ",", "."))
+                ->description("Receita do mês atual")
+                ->descriptionIcon('heroicon-m-calendar')
+                ->color('info'),
 
             Stat::make("🏍️ Motos Disponíveis", $totalMotorcycles)
                 ->description($totalMotorcycles > 5 ? "Estoque saudável" : "⚠️ Estoque baixo")
@@ -96,7 +111,7 @@ class StatsOverview extends BaseWidget
         elseif ($leads > 0) $score += 10;
         
         // Pontuação baseada em vendas
-        $sales = Sale::whereMonth('created_at', Carbon::now()->month)->count();
+        $sales = Sale::whereMonth('sale_date', Carbon::now()->month)->count();
         if ($sales > 5) $score += 25;
         elseif ($sales > 2) $score += 15;
         elseif ($sales > 0) $score += 10;

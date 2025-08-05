@@ -1,9 +1,0 @@
-[
-  {
-    "brand": "Honda", "model": "CG 160 Titan", "version": "S", "model_year": 2025, "manufacture_year": 2025, "type": "NOVA", "color": "Azul Perolizado", "engine_details": "162.7cc", "purchase_price": 15000.00, "sale_price": 18500.00, "status": "DISPONIVEL"
-  },
-  {
-    "brand": "Yamaha", "model": "NMAX 160", "version": "ABS", "model_year": 2023, "manufacture_year": 2022, "type": "USADA", "license_plate": "BRA2E19", "chassis_number": "9C6ABC123DEF45678", "renavam": "12345678901", "color": "Preto Fosco", "mileage": 8500, "engine_details": "155cc", "purchase_price": 16000.00, "sale_price": 19800.00, "status": "DISPONIVEL"
-  }
-]
-

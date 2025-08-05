@@ -18,6 +18,9 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             CustomerSeeder::class,
             MotorcycleSeeder::class,
+            LeadSeeder::class,
+            SaleSeeder::class,
+            InteractionSeeder::class,
         ]);
     }
 }
