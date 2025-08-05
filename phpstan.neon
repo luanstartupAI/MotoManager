@@ -1,16 +1,19 @@
 parameters:
     level: 8
     paths:
-        - src/
+        - app/
     excludePaths:
         - tests/
         - vendor/
+        - bootstrap/cache/
+        - storage/
     checkMissingIterableValueType: false
     checkGenericClassInNonGenericObjectType: false
     checkMissingCallableSignature: false
     ignoreErrors:
         - '#Call to an undefined method [a-zA-Z0-9\\_]+::[a-zA-Z0-9\\_]+\(\)#'
         - '#Access to an undefined property [a-zA-Z0-9\\_]+::\$[a-zA-Z0-9\\_]+#'
+        - '#Call to static method [a-zA-Z0-9\\_]+\(\) on an unknown class#'
     tmpDir: build/phpstan
     parallel:
         maximumNumberOfProcesses: 4

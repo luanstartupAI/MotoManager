@@ -1,0 +1,27 @@
+[
+  {
+    "name": "Admin Gestor",
+    "email": "admin@motomanager.com",
+    "password": "password",
+    "role": "admin"
+  },
+  {
+    "name": "João Vendedor",
+    "email": "joao.vendedor@motomanager.com",
+    "password": "password",
+    "role": "vendedor"
+  },
+  {
+    "name": "Maria Gerente",
+    "email": "gerente@motomanager.com",
+    "password": "password",
+    "role": "gerente"
+  },
+  {
+    "name": "Carlos Oficina",
+    "email": "oficina@motomanager.com",
+    "password": "password",
+    "role": "oficina"
+  }
+]
+
